@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Card || CodeWithHarry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .bg {
+            width: 310px;
+            height: 430px;
+            background: #91acc36c;
+            position: absolute;
+            left: 37.2%;
+            bottom: 19%;
+            border-radius: 20px;
+        }
+
+        .container {
+            width: 16.8vw;
+            height: 53vh;
+            position: absolute;
+            left: 40.2%;
+            bottom: 25.6%;
+            background: rgb(207, 207, 244);
+            border: 2px solid #330066;
+            border-radius: 15px;
+            box-shadow: inset 0px 0px 10px;
+        }
+
+        .img {
+            width: 225px;
+            height: 160px;
+            position: relative;
+            padding: 3px;
+            border-radius: 15px;
+        }
+
+        .span {
+            display: flex;
+            background: #ffffffa9;
+            padding: 1px 10px;
+            font-size: 12px;
+            width: 215px;
+            display: flex;
+            position: relative;
+            left: 4.8px;
+            border-radius: 8px;
+        }
+
+        .span p:first-child {
+            border: 1.5px solid #000;
+            border-radius: 25px;
+            margin: 0px 7px;
+            padding: 1px 7px;
+        }
+
+        .span p:nth-child(2) {
+            border: 1.5px solid #000;
+            border-radius: 25px;
+            padding: .5px 6px;
+        }
+
+        .para {
+            text-align: center;
+            margin: 10px;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        .btn {
+            position: absolute;
+            left: 75px;
+            bottom: 5px;
+            border-radius: 20px;
+            padding: 3px 10px;
+            background-color: rgb(116, 197, 228);
+            box-shadow: inset 5px 5px 2px #2f687e;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            transition: .3s ease;
+            cursor:not-allowed;
+        }
+
+        .btn:hover{
+            box-shadow: inset -5px -5px 2px #2f687e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="container">
+        <img src="1.png" alt="Here's is the public image" class="img">
+        <span class="span">
+            <p>Lorem, ipsum.</p>
+            <p>Lorem.</p>
+        </span>
+        <p class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla officiis provident eius molestias
+            vero hic corporis repellat facilis nesciunt ullam.</p>
+        <button class="btn">Submit</button>
+    </div>
+</body>
+
+</html>
