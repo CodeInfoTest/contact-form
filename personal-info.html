@@ -77,6 +77,8 @@
             cursor: pointer;
             border: none;
             border-radius: 4px;
+            display: none;
+            justify-content: center;
         }
 
         button[type="submit"]:active {
@@ -110,7 +112,113 @@
                 padding: 8px 12px;
             }
         }
+        .div-checked{
+            display: flex;
+            text-align:center;
+            justify-content: center;
+/* max-width: 10px; */
+        }
+        .checkbox-checked input{
+            accent-color: #0f6d62;
+            width: 20px;
+        }
+    </style>
+    <style>/*Bubbly Button*/
+        .bubbly-button {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: inline-block;
+            font-size: 1em;
+            padding: 1em 2em;
+            margin-top: 20px;
+            margin-bottom: 60px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            color: #fff;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+            /* box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5); */
+        }
 
+        .bubbly-button:focus {
+            outline: 0;
+        }
+
+        .bubbly-button:before,
+        .bubbly-button:after {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 140%;
+            height: 100%;
+            left: -20%;
+            z-index: -1000;
+            transition: all ease-in-out 0.5s;
+            background-repeat: no-repeat;
+        }
+
+        .bubbly-button:before {
+            display: none;
+            top: -75%;
+            background-image: radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, transparent 20%, #001aff 20%, transparent 30%), radial-gradient(circle, #001aff 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, transparent 10%, #ff0081 15%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #001aff 20%, transparent 20%);
+            background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+        }
+
+        .bubbly-button:after {
+            display: none;
+            bottom: -75%;
+            background-image: radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #00ff11 20%, transparent 20%), radial-gradient(circle, transparent 10%, #ff0081 15%, transparent 20%), radial-gradient(circle, #00ff11 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #00ff11 20%, transparent 20%);
+            background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+        }
+
+        .bubbly-button:active {
+            transform: scale(0.97);
+            background-color: #0096e6;
+            /* box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2); */
+        }
+
+        .bubbly-button.animate:before {
+            display: block;
+            animation: topBubbles ease-in-out 0.75s forwards;
+        }
+
+        .bubbly-button.animate:after {
+            display: block;
+            animation: bottomBubbles ease-in-out 0.75s forwards;
+        }
+
+        @keyframes topBubbles {
+            0% {
+                background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+            }
+
+            50% {
+                background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+            }
+
+            100% {
+                background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+                background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+            }
+        }
+
+        @keyframes bottomBubbles {
+            0% {
+                background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+            }
+
+            50% {
+                background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+            }
+
+            100% {
+                background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+                background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+            }
+        }
     </style>
 </head>
 
@@ -143,7 +251,7 @@
             <input type="text" id="nickName" name="nickname" placeholder="Type your Nickname">
 
             <label for="dateOfBirth"><span>*</span>Date of Birth:</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Type your Date Of Birth">
+            <input type="date" id="dateOfBirth" name="dateOfBirth" min="1947-09-21" placeholder="Type your Date Of Birth">
 
             <label for="gender"><span>*</span>Gender:</label>
             <select id="genderValue" name="gender" required>
@@ -155,11 +263,12 @@
 
             <label for="maritalStatus"><span>*</span>Marital Status:</label>
             <select id="maritalStatus" name="maritalStatus" required>
-                <option></option>
+                <option value="">Select Marital Status</option>
                 <option value="single">Single</option>
                 <option value="married">Married</option>
                 <option value="divorced">Divorced</option>
                 <option value="widowed">Widowed</option>
+                <option value="Separated">Separated</option>
             </select>
 
             <label for="languagesKnown"><span>*</span>Languages Known:</label>
@@ -184,9 +293,16 @@
                 <input type="email" id="emailValue" name="email" placeholder="Your Valid Email Address" required>
             </fieldset>
             <fieldset>
-                <label for="qualification"><span>*</span>Qualification:</label>
-                <input type="text" id="qualificationValue" name="qualification" placeholder="Type your last Qualification"
-                    required>
+                <label for="qualification"><span>*</span>Educational Qualification:</label>
+                    <select id="maritalStatus" name="maritalStatus" required>
+                        <option value="">Select Educational Qualification</option>
+                        <option value="7th Pass or Less">7th Pass or Less</option>
+                        <option value="Between 8th and 9th Pass">Between 8th and 9th Pass</option>
+                        <option value="10th Pass or Above">10th Pass or Above</option>
+                        <option value="Graduate and Above">Graduate and Above</option>
+                    </select>
+                <!-- <input type="text" id="qualificationValue" name="qualification" placeholder="Type your last Qualification"
+                    required> -->
 
                 <label for="aadharNo"><span>*</span>Aadhar No:</label>
                 <input type="tel" id="aadharNo" name="aadhaarNo" placeholder="Type your Aadhar No" required maxlength="12" >
@@ -513,11 +629,22 @@
                 <label for="textarea"><span>*</span>Your Message:</label>
                 <textarea name="yourmessage" id="yourMessage" rows="5" placeholder="Your Message"></textarea>
             </fieldset>
-
+            <div class="div-checked">
+            <label for="checkBox" class="checkbox-checked">
+                <input type="checkbox" id="checkBox" onchange="toggleButtonVisibility()">
+                Accepting Terms and Conditions.
+            </label>
+            </div>
+            <div class="div-checked">
+            <label for="checkBox" class="checkbox-checked" >
+                <input type="checkbox" id="checkBox" checked onchange="toggleButtonVisibility()">
+                I want to assure you that I don't store or use any personal data shared during our conversation. Your privacy and data security are important.
+            </label>
+            </div>
         </fieldset>
 
         <i class="bi bi-right"></i>
-        <button type="submit" value="Submit">Submit</button>
+        <button type="submit" value="Submit" id="submitBtn" class="glow-on-hover bubbly-button" onclick="submitForm()">Submit</button>
     </form>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
@@ -588,6 +715,35 @@
         //     }
         // }
     </script>
+        <script> //bubbly button
+            var animateButton = function (e) {
+    
+                e.preventDefault;
+                //reset animation
+                e.target.classList.remove('animate');
+    
+                e.target.classList.add('animate');
+                setTimeout(function () {
+                    e.target.classList.remove('animate');
+                }, 700);
+            };
+    
+            var bubblyButtons = document.getElementsByClassName("bubbly-button");
+    
+            for (var i = 0; i < bubblyButtons.length; i++) {
+                bubblyButtons[i].addEventListener('click', animateButton, false);
+            }
+        </script>
+        <script>
+            function toggleButtonVisibility() {
+            var checkbox = document.getElementById('checkBox');
+            var button = document.getElementById('submitBtn');
+
+            // If the checkbox is checked, display the button; otherwise, hide it
+            button.disabled = !checkbox.checked;
+            button.style.display = checkbox.checked ? 'flex' : 'none';
+        }
+        </script>
 
 
 </body>
