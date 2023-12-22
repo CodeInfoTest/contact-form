@@ -69,7 +69,7 @@
             font-family: monospace;
         }
 
-        button[type="button"] {
+        button[type="submit"] {
             width: 100%;
             background-color: #4caf50;
             color: #fff;
@@ -79,7 +79,7 @@
             border-radius: 4px;
         }
 
-        button[type="button"]:active {
+        button[type="submit"]:active {
             transform: scale(.99);
         }
 
@@ -116,7 +116,7 @@
 
 <body>
 
-    <form action="#" method="post" id="myForm">
+    <form action="#" onsubmit="sendEmail(); reset(); return false;" method="post" id="myForm">
         <fieldset>
             <legend>Personal Information</legend>
 
@@ -137,16 +137,16 @@
             <input type="text" id="middleName" name="middle" placeholder="Type your middle name">
 
             <label for="surname"><span>*</span>Surname:</label>
-            <input type="text" id="surname" name="surname" placeholder="Type your surname" required>
+            <input type="text" id="surName" name="surname" placeholder="Type your surname" required>
 
             <label for="nickname">Nick Name:<span style="color: #333; font-size: 10px;">(optional)</span></label>
-            <input type="text" id="nickname" name="nickname" placeholder="Type your Nickname">
+            <input type="text" id="nickName" name="nickname" placeholder="Type your Nickname">
 
             <label for="dateOfBirth"><span>*</span>Date of Birth:</label>
             <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Type your Date Of Birth">
 
             <label for="gender"><span>*</span>Gender:</label>
-            <select id="gender" name="gender" required>
+            <select id="genderValue" name="gender" required>
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -167,32 +167,32 @@
                 required>
 
             <label for="religion"><span>*</span>Religion:</label>
-            <input type="text" id="religion" name="religion" placeholder="Type your Religious" required>
+            <input type="text" id="religionValue" name="religion" placeholder="Type your Religious" required>
 
             <label for="nationality"><span>*</span>Nationality:</label>
-            <input type="text" id="nationality" name="nationality" placeholder="Type Your Nationality" required>
+            <input type="text" id="nationalityValue" name="nationality" placeholder="Type Your Nationality" required>
             <fieldset>
                 <legend>Contact Details</legend>
                 <label for="contact"><span>*</span>Contact No:</label>
-                <input type="tel" id="contact" name="contact" maxlength="10" placeholder="Type your Contact no" required>
+                <input type="tel" id="contactNo" name="contact" maxlength="10" placeholder="Type your Contact no" required>
 
                 <label for="contact">Alternate Contact No:<span
                         style="color: #333; font-size: 10px;">(optional)</span></label>
                 <input type="tel" id="alternateContact" name="contact" maxlength="10" placeholder="Type your Alternate Contact no">
 
                 <label for="email"><span>*</span>Email Address:</label>
-                <input type="email" id="email" name="email" placeholder="Your Valid Email Address" required>
+                <input type="email" id="emailValue" name="email" placeholder="Your Valid Email Address" required>
             </fieldset>
             <fieldset>
                 <label for="qualification"><span>*</span>Qualification:</label>
-                <input type="text" id="qualification" name="qualification" placeholder="Type your last Qualification"
+                <input type="text" id="qualificationValue" name="qualification" placeholder="Type your last Qualification"
                     required>
 
                 <label for="aadharNo"><span>*</span>Aadhar No:</label>
                 <input type="tel" id="aadharNo" name="aadhaarNo" placeholder="Type your Aadhar No" required maxlength="12" >
 
                 <label for="state"><span>*</span>State:</label>
-                <select id="state" name="state" placeholder="" required>
+                <select id="stateValue" name="state" placeholder="" required>
                     <option value="">Select State</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -233,7 +233,7 @@
                 </select>
 
                 <label for="country"><span>*</span>Country:</label>
-                <select id="country" name="country" placeholder="" required>
+                <select id="countryValue" name="country" placeholder="" required>
                     <option value="">Select City</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
@@ -490,7 +490,7 @@
                 <legend>Permanent Address</legend>
 
                 <label for="village"><span>*</span>Village:</label>
-                <input type="text" id="village" name="village" placeholder="Your Village" required>
+                <input type="text" id="villageName" name="village" placeholder="Your Village" required>
 
                 <label for="street"><span>*</span>Street Name:</label>
                 <input type="text" id="streetName" name="street" placeholder="Street Name" required>
@@ -508,7 +508,7 @@
                 <input type="text" id="zipCode" name="zipCode" placeholder="Zip Code" required>
 
                 <label for="city"><span>*</span>City:</label>
-                <input type="text" id="cityName" name="city" placeholder="City" required>
+                <input type="text" id="cityName" name="cityname" placeholder="City" required>
 
                 <label for="textarea"><span>*</span>Your Message:</label>
                 <textarea name="yourmessage" id="yourMessage" rows="5" placeholder="Your Message"></textarea>
@@ -517,60 +517,76 @@
         </fieldset>
 
         <i class="bi bi-right"></i>
-        <button type="button" onclick="submitForm()" value="Submit">Submit</button>
+        <button type="submit" value="Submit">Submit</button>
     </form>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
-        
-        function sendEmail() {
+
+        function sendEmail(){
             Email.send({
-                SecureToken: "193887cc-84eb-4364-9191-b101162699fc",
-                To: 'id.code.infotest@gmail.com',
-                From: "id.code.infotest@gmail.com",
-                Subject: document.getElementById("firstName").value
-                + document.getElementById("middleName").value
-                + document.getElementById("lastName").value,
-                Body: "First Name: " + document.getElementById("firstName").value
-                    + "<br> Middle Name: " + document.getElementById("middleName").value
-                    + "<br> Surname: " + document.getElementById("surname").value
-                    + "<br> Nick Name: " + document.getElementById("nickName").value
-                    + "<br> Date of Birth: " + document.getElementById("dateOfBirth").value
-                    + "<br> Gender: " + document.getElementById("gender").value
-                    + "<br> Marital Status: " + document.getElementById("maritalStatus").value
-                    + "<br> Language Known: " + document.getElementById("languagesKnown").value
-                    + "<br> Religion: " + document.getElementById("religion").value
-                    + "<br> Nationality: " + document.getElementById("nationality").value
-                    + "<br> Contact No: " + document.getElementById("contact").value
-                    + "<br> Alternate Contact No: " + document.getElementById("alternateContact").value
-                    + "<br> Email: " + document.getElementById("email").value
-                    + "<br> Qualification: " + document.getElementById("qualification").value
-                    + "<br> Aadhar no: " + document.getElementById("aadharNo").value
-                    + "<br> State: " + document.getElementById("state").value
-                    + "<br> Village: " + document.getElementById("village").value
-                    + "<br> Street Name: " + document.getElementById("streetName").value
-                    + "<br> Landmark Name: " + document.getElementById("landmarkName").value
-                    + "<br> Police Station: " + document.getElementById("policeStation").value
-                    + "<br> Post Office: " + document.getElementById("postOffice").value
-                    + "<br> Zip Code: " + document.getElementById("zipCode").value
-                    + "<br> City Name: " + document.getElementById("cityName").value
-                    + "<br> Your Message: " + document.getElementById("yourMessage").value
-                    // + "<br> Message: " + document.getElementById("message").value
-            }).then(
-                message => alert(message)
-            );
+    SecureToken : "2e8b6a5a-a8c2-4749-8bfd-41c3f438f340",
+    To : 'id.code.infotest@gmail.com',
+    From : "id.code.infotest@gmail.com",
+    Subject : document.getElementById("firstName").value
+    + document.getElementById("surName").value,
+    Body: "Name: " + document.getElementById("firstName").value
+    + "<br> Middle Name: " + document.getElementById("middleName").value
+    + "<br> Surname: " + document.getElementById("surName").value
+    + "<br> Nick Name: " + document.getElementById("nickName").value
+    + "<br> Date Of Birth: " + document.getElementById("dateOfBirth").value
+    + "<br> Gender: " + document.getElementById("genderValue").value
+    + "<br> Marital Status: " + document.getElementById("maritalStatus").value
+    + "<br> Language Known: " + document.getElementById("languagesKnown").value
+    + "<br> Religion: " + document.getElementById("religionValue").value
+    + "<br> Nationality: " + document.getElementById("nationalityValue").value
+    + "<br> Contact No: " + document.getElementById("contactNo").value
+    + "<br> Alternate Contact No: " + document.getElementById("alternateContact").value
+    + "<br> Email Id: " + document.getElementById("emailValue").value
+    + "<br> Educational Qualification : " + document.getElementById("qualificationValue").value
+    + "<br> Aadhar No: " + document.getElementById("aadharNo").value
+    + "<br> State: " + document.getElementById("stateValue").value
+    + "<br> Country: " + document.getElementById("countryValue").value
+    + "<br> Village: " + document.getElementById("villageName").value
+    + "<br> Street Name: " + document.getElementById("streetName").value
+    + "<br> Landmark: " + document.getElementById("landmarkName").value
+    + "<br> Police Station: " + document.getElementById("policeStation").value
+    + "<br> Post Office: " + document.getElementById("postOffice").value
+    + "<br> Zip Code: " + document.getElementById("zipCode").value
+    + "<br> City: " + document.getElementById("cityName").value
+    + "<br> Message: " + document.getElementById("yourMessage").value
+}).then(
+    message =>                
+    window.location.href = 'afterpost.html'
+    //message => alert("message sent successfully")
+);
         }
 
-        function submitForm() {
-            var form = document.getElementById('myForm');
+        // function sendEmail() {
+        //     Email.send({
+        //         SecureToken: "2e8b6a5a-a8c2-4749-8bfd-41c3f438f340",
+        //         To: 'id.code.infotest@gmail.com',
+        //         From: "id.code.infotest@gmail.com",
+        //         Subject: "this is the subject",
+        //         Body: "this is a body"
+        //             // + "<br> Message: " + document.getElementById("message").value
+        //     }).then(
+        //         message => alert("Message Sent successfully")
+        //     );
+        // }
+
+
+        // function submitForm() {
+        //     var form = document.getElementById('myForm');
             
-            // Check if all required fields are complete
-            if (form.checkValidity()) {
-                // Redirect to a new page (replace 'new-page.html' with your desired page)
-                window.location.href = 'afterpost.html';
-            } else {
-                // If not all required fields are complete, trigger browser's native validation
-                form.reportValidity();
-            }
-        }
+        //     // Check if all required fields are complete
+        //     if (form.checkValidity()) {
+        //         // Redirect to a new page (replace 'new-page.html' with your desired page)
+        //         window.location.href = 'afterpost.html';
+        //     } else {
+        //         // If not all required fields are complete, trigger browser's native validation
+        //         form.reportValidity();
+        //     }
+        // }
     </script>
 
 
