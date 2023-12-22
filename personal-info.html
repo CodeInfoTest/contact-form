@@ -69,7 +69,7 @@
             font-family: monospace;
         }
 
-        button[type="submit"] {
+        button[type="button"] {
             width: 100%;
             background-color: #4caf50;
             color: #fff;
@@ -79,7 +79,7 @@
             border-radius: 4px;
         }
 
-        button[type="submit"]:active {
+        button[type="button"]:active {
             transform: scale(.99);
         }
 
@@ -116,7 +116,7 @@
 
 <body>
 
-    <form action="#" method="post">
+    <form action="#" method="post" id="myForm">
         <fieldset>
             <legend>Personal Information</legend>
 
@@ -517,7 +517,7 @@
         </fieldset>
 
         <i class="bi bi-right"></i>
-        <button type="submit" value="Submit">Submit</button>
+        <button type="button" onclick="submitForm()" value="Submit">Submit</button>
     </form>
     <script>
         
@@ -557,6 +557,19 @@
             }).then(
                 message => alert(message)
             );
+        }
+
+        function submitForm() {
+            var form = document.getElementById('myForm');
+            
+            // Check if all required fields are complete
+            if (form.checkValidity()) {
+                // Redirect to a new page (replace 'new-page.html' with your desired page)
+                window.location.href = 'afterpost.html';
+            } else {
+                // If not all required fields are complete, trigger browser's native validation
+                form.reportValidity();
+            }
         }
     </script>
 
